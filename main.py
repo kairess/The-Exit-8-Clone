@@ -1,9 +1,16 @@
-from ursina import *
+# MSAA 강제 적용을 위한 PRC 설정 (반드시 가장 최상단에 위치)
+from panda3d.core import loadPrcFileData, AntialiasAttrib, Texture, TexturePool
+loadPrcFileData('', 'framebuffer-multisample 1')
+loadPrcFileData('', 'multisamples 4')
+loadPrcFileData('', 'render-mode forward')  # MSAA는 deferred 모드에서 작동하지 않을 수 있음
+
+from ursina import Ursina, Entity, mouse, color, time
 from ursina.prefabs.first_person_controller import FirstPersonController
 from direct.actor.Actor import Actor
 
 app = Ursina()
 mouse.visible = False
+render.setAntialias(AntialiasAttrib.MAuto)  # MMultisample + FXAA 별도 적용
 
 # 복도의 벽, 바닥, 천장을 생성
 main_floor = Entity(model='cube', position=(0, 0, 0), scale=(10, 1, 100), color=color.gray, collider='box')

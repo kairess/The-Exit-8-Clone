@@ -1,0 +1,7 @@
+# 파이썬 캐시
+__pycache__/
+*.pyc
+.python-version
+# UV 관련
+.venv/
+uv.lock
